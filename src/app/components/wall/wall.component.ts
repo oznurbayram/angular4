@@ -9,19 +9,25 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class WallComponent implements OnInit {
 
+
+  todos: Todo[];
   constructor(private todoService: TodoService) { }   //servise erişebilmek için
-  
-  ngOnInit() {
+   
+  ngOnInit() {   //component initiliaze olduğunda çalışan metot   
+  this.todos = this.todoService.GetTodos();
   }
 
  AddToDo(todoText: HTMLInputElement){
-   const obj = {
-     text: todoText.value,
-     createdAt : new Date()
+   if(todoText != null)
+
+   { const obj = {
+    text: todoText.value,
+    createdAt : new Date()
    };
 
-   this.todoService.AddTodo(obj);
-   todoText.value= '';
+  this.todoService.AddTodo(obj);
+  todoText.value= '';
+}
  }
  
   RemoveTodo(todo : Todo)
